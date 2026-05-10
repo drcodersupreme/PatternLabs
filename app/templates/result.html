@@ -1,0 +1,86 @@
+<div class="results-content fade-in">
+    <div class="header text-center mb-12">
+        <h1 class="gradient-text text-6xl relative">
+            Conjecture Results
+            <div class="glow-bg absolute-center z-negative blur-3xl"></div>
+        </h1>
+        <div class="result-formula-box">
+            <code class="text-2xl text-emerald z-10 relative">{{ theorem }}</code>
+            <div class="formula-glow"></div>
+        </div>
+    </div>
+
+    <div class="stats-cards-row">
+        <div class="stat-box group">
+            <span class="icon text-muted mb-4">#</span>
+            <div class="text-4xl text-white">{{ tested }}</div>
+            <div class="stat-box-label">Numbers Tested</div>
+        </div>
+        <div class="stat-box border-emerald glow-emerald group">
+            <span class="icon text-emerald mb-4">✓</span>
+            <div class="text-4xl text-emerald">{{ true_count }}</div>
+            <div class="stat-box-label">True Results</div>
+        </div>
+        <div class="stat-box border-red glow-red group">
+            <span class="icon text-red mb-4">✗</span>
+            <div class="text-4xl text-red">{{ false_count }}</div>
+            <div class="stat-box-label">False Results</div>
+        </div>
+        <div class="stat-box border-blue glow-blue group">
+            <span class="icon text-blue mb-4">%</span>
+            <div class="text-4xl text-blue">{{ accuracy }}%</div>
+            <div class="stat-box-label">Accuracy</div>
+        </div>
+    </div>
+
+    <div class="charts-row">
+        <div class="chart-box">
+            <h3 class="chart-title">Results Distribution</h3>
+            <div class="chart-grid-bg">
+                <div class="axis-labels bottom">Numbers Tested</div>
+                <div class="axis-labels left">Results</div>
+                
+                <div class="bars-container">
+                    {% for data in chart_data %}
+                    <div class="chart-bar {% if data.result %}bar-true{% else %}bar-false{% endif %} group" style="height: {{ data.height }}%">
+                        <div class="tooltip">
+                            <div>#{{ data.number }}</div>
+                            <div class="{% if data.result %}text-emerald{% else %}text-red{% endif %}">
+                                {% if data.result %}TRUE{% else %}FALSE{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-box">
+            <h3 class="chart-title text-center">True vs False</h3>
+            
+            <div class="donut-container">
+                <svg viewBox="0 0 100 100" class="donut-svg">
+                    <circle class="donut-ring" cx="50" cy="50" r="40" fill="transparent" stroke="#ef4444" stroke-width="20"></circle>
+                    <circle class="donut-segment" cx="50" cy="50" r="40" fill="transparent" stroke="#10b981" stroke-width="20" stroke-dasharray="{{ (true_count / tested) * 251.2 }} 251.2" stroke-dashoffset="62.8"></circle>
+                </svg>
+                <div class="donut-center-text">
+                    <div class="text-3xl text-white">{{ tested }}</div>
+                    <div class="text-xs text-muted uppercase">Total</div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item"><span class="dot bg-emerald glow-dot-emerald"></span> <span class="text-muted">True: {{ true_count }}</span></div>
+                <div class="legend-item"><span class="dot bg-red glow-dot-red"></span> <span class="text-muted">False: {{ false_count }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-row text-center mt-12">
+        <button id="reset-btn" class="primary-btn px-16 group" onclick="resetTest()">
+            <span class="icon sparkle z-10">✨</span>
+            <span class="z-10">Run Another Test</span>
+            <div class="btn-glow z-negative"></div>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Mathematical Theorems</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Background decorations -->
+        <div class="bg-decorations opacity-10">
+            <div class="deco deco-1 text-emerald">∑</div>
+            <div class="deco deco-2 text-emerald">∫</div>
+            <div class="deco deco-3 text-emerald">π</div>
+            <div class="deco deco-4 text-emerald">∞</div>
+            <div class="deco deco-5 text-emerald">∂</div>
+        </div>
+
+        <div class="bg-gradient-overlay"></div>
+        <div class="bg-grid-overlay"></div>
+
+        <div id="view-container">
+            <!-- Landing View -->
+            <div id="view-landing" class="view active">
+                <div class="landing-content">
+                    <div class="header">
+                        <div class="header-title">
+                            <span class="icon sparkle text-emerald">✨</span>
+                            <h1 class="gradient-text">Test Mathematical Theorems</h1>
+                            <span class="icon sparkle text-emerald">✨</span>
+                        </div>
+                        <p class="subtitle">Validate your mathematical conjectures across 10,000 numbers with advanced computational analysis</p>
+                    </div>
+
+                    <div class="input-section">
+                        <div class="input-wrapper">
+                            <input type="text" id="theorem-input" placeholder="Enter your theorem (e.g., n² - 1 are prime)">
+                            <div class="input-glow"></div>
+                        </div>
+
+                        <button id="run-test-btn" class="primary-btn mt-6">
+                            <span class="icon play-icon">▶</span>
+                            Run Test
+                        </button>
+                    </div>
+
+                    <div class="examples-section">
+                        <h3 class="section-label">Example Conjectures</h3>
+                        <div class="examples-grid">
+                            {% for conjecture in example_conjectures %}
+                            <div class="example-card" onclick="setTheorem('{{ conjecture.formula|escape }}')">
+                                <h4 class="text-emerald">{{ conjecture.title }}</h4>
+                                <p class="text-muted">{{ conjecture.description }}</p>
+                                <code>{{ conjecture.formula }}</code>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading View -->
+            <div id="view-loading" class="view">
+                <div class="particles-container" id="particles"></div>
+                
+                <div class="loading-content">
+                    <div class="progress-circle-container">
+                        <svg class="progress-svg">
+                            <circle class="progress-bg" cx="128" cy="128" r="110"></circle>
+                            <circle class="progress-bar" id="progress-bar" cx="128" cy="128" r="110"></circle>
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#10b981" />
+                                    <stop offset="100%" stop-color="#34d399" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="progress-center">
+                            <div class="spinner"></div>
+                            <div class="progress-text" id="progress-text">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="live-counter">
+                        <div class="status-text">Processing...</div>
+                        <div class="counter-display">
+                            <span class="text-emerald" id="current-number">0</span>
+                            <span class="text-muted"> / 10,000</span>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="icon text-emerald">✓</span>
+                            <div class="stat-value text-emerald" id="true-cases">0</div>
+                            <div class="stat-label">True Cases</div>
+                        </div>
+                        <div class="stat-card border-red">
+                            <span class="icon text-red">✗</span>
+                            <div class="stat-value text-red" id="false-cases">0</div>
+                            <div class="stat-label">False Cases</div>
+                        </div>
+                        <div class="stat-card border-blue">
+                            <span class="icon text-blue">↗</span>
+                            <div class="stat-value text-blue" id="current-number-stat">0</div>
+                            <div class="stat-label">Current Number</div>
+                        </div>
+                    </div>
+
+                    <div class="waveform" id="waveform"></div>
+                </div>
+            </div>
+
+            <!-- Results View container -->
+            <div id="view-results" class="view">
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
