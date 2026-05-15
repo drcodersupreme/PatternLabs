@@ -210,18 +210,22 @@ def analyze_theorem(theorem: str) -> dict:
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse(
-        "index.html", 
-        {"request": request, "example_conjectures": EXAMPLE_CONJECTURES}
+        request=request,
+        name="index.html",
+        context={
+            "example_conjectures": EXAMPLE_CONJECTURES
+        }
     )
+
 
 @app.post("/simulate", response_class=HTMLResponse)
 async def simulate(request: Request, theorem: str = Form(...)):
     analysis = analyze_theorem(theorem.strip()[:500])
-        
+
     return templates.TemplateResponse(
-        "result.html",
-        {
-            "request": request,
+        request=request,
+        name="result.html",
+        context={
             **analysis,
         }
     )
