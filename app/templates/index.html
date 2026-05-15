@@ -50,11 +50,11 @@
                         <h3 class="section-label">Example Conjectures</h3>
                         <div class="examples-grid">
                             {% for conjecture in example_conjectures %}
-                            <div class="example-card" onclick="setTheorem('{{ conjecture.formula|escape }}')">
+                            <button class="example-card" type="button" data-formula="{{ conjecture.formula|e }}">
                                 <h4 class="text-emerald">{{ conjecture.title }}</h4>
                                 <p class="text-muted">{{ conjecture.description }}</p>
                                 <code>{{ conjecture.formula }}</code>
-                            </div>
+                            </button>
                             {% endfor %}
                         </div>
                     </div>

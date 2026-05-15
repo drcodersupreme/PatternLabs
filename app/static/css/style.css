@@ -204,7 +204,10 @@ body {
     backdrop-filter: blur(8px);
     border: 1px solid rgba(31,41,55,1);
     border-radius: 0.75rem;
+    color: inherit;
     cursor: pointer;
+    font: inherit;
+    text-align: left;
     transition: all 0.3s ease;
 }
 .example-card:hover {
@@ -362,6 +365,13 @@ body {
     opacity: 0.5;
     z-index: 0;
 }
+.analysis-note {
+    max-width: 48rem;
+    margin: -1rem auto 0 auto;
+    color: var(--text-muted);
+    line-height: 1.6;
+    text-align: center;
+}
 
 .stats-cards-row {
     display: grid;
@@ -483,6 +493,16 @@ body {
     transition: opacity 0.2s ease;
 }
 .chart-bar:hover .tooltip { opacity: 1; }
+.empty-chart-message {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 2rem;
+}
 
 .donut-container {
     position: relative;
@@ -521,4 +541,7 @@ body {
     border-radius: 1rem;
     filter: blur(24px);
     opacity: 0.5;
+}
+.error-message {
+    color: var(--red-400);
 }
